@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fantasy F1 Standings</title>
+</head>
+<body>
+    <h1>Fantasy F1 Standings</h1>
+    <ul id="standings"></ul>
+    <script>
+        // Your draft picks (update with your actual driver codes)
+        const teams = {
+            "Nancy": ["HAM", "SAI", "HAD", "OCO", "DOO"],
+            "Jack": ["NOR", "TSU",  "GAS", "HUL", "STR"],
+            "J": ["PIA", "RUS", "ALB", "ALO", "BEA"],
+            "Scott": ["LEC", "VER", "ANT", "LAW", "BOR"]
+        };
+
+        // Fetch standings from Jolpica API
+        fetch('https://api.jolpi.ca/ergast/f1/current/driverstandings')
+            .then(response => response.json())
+            .then(data => {
+                const standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+                const teamPoints = {};
+
+                // Calculate total points for each team
+                for (const [player, drivers] of Object.entries(teams)) {
+                    let total = 0;
+                    drivers.forEach(driverCode => {
+                        const driver = standings.find(d => d.Driver.code === driverCode);
+                        if (driver) total += parseInt(driver.points);
+                    });
+                    teamPoints[player] = total;
+                }
+
+                // Display results
+                const list = document.getElementById('standings');
+                for (const [player, points] of Object.entries(teamPoints)) {
+                    const li = document.createElement('li');
+                    li.textContent = `${player}: ${points} points`;
+                    list.appendChild(li);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

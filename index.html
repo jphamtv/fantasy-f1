@@ -33,13 +33,16 @@
                     teamPoints[player] = total;
                 }
 
-                // Display results
+                // Convert teamPoints to an array and sort by points (descending)
+                const sortedTeams = Object.entries(teamPoints).sort((a, b) => b[1] - a[1]);
+
+                // Display results in sorted order
                 const list = document.getElementById('standings');
-                for (const [player, points] of Object.entries(teamPoints)) {
+                sortedTeams.forEach(([player, points]) => {
                     const li = document.createElement('li');
                     li.textContent = `${player}: ${points} points`;
                     list.appendChild(li);
-                }
+                });
             })
             .catch(error => console.error('Error:', error));
     </script>

@@ -1,15 +1,16 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   font-size: 16px;
   margin: 1rem;
   padding: 1rem;
   background-color: #15151E;
   line-height: 1.6;
+    letter-spacing: 1px;
 }
 h1 {
   color: #FF1E00;
   text-align: center;
-  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
 }
@@ -57,10 +58,15 @@ h1 {
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 
   #standings li {
     padding: 1rem;
+  }
+}
+@media (max-width: 23em) {
+  h1 {
+    font-size: 1.5rem;
   }
 }

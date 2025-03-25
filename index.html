@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fantasy F1 Standings</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <h1>Fantasy F1 Standings</h1>
     <ul id="standings"></ul>
     <script>
-        // Your draft picks (update with your actual driver codes)
-        const teams = {
-            "Nancy": ["HAM", "SAI", "HAD", "OCO", "DOO"],
-            "Jack": ["NOR", "TSU",  "GAS", "HUL", "STR"],
-            "J": ["PIA", "RUS", "ALB", "ALO", "BEA"],
-            "Scott": ["LEC", "VER", "ANT", "LAW", "BOR"]
-        };
+      // Your draft picks (update with your actual driver codes)
+      const teams = {
+        Nancy: ["HAM", "SAI", "HAD", "OCO", "DOO"],
+        Jack: ["NOR", "TSU", "GAS", "HUL", "STR"],
+        J: ["PIA", "RUS", "ALB", "ALO", "BEA"],
+        Scott: ["LEC", "VER", "ANT", "LAW", "BOR"],
+      };
 
-        // Fetch standings from Jolpica API
-        fetch('https://api.jolpi.ca/ergast/f1/current/driverstandings')
-            .then(response => response.json())
-            .then(data => {
-                const standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-                const teamPoints = {};
+      // Fetch standings from Jolpica API
+      fetch("https://api.jolpi.ca/ergast/f1/current/driverstandings")
+        .then((response) => response.json())
+        .then((data) => {
+          const standings =
+            data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+          const teamPoints = {};
 
-                // Calculate total points for each team
-                for (const [player, drivers] of Object.entries(teams)) {
-                    let total = 0;
-                    drivers.forEach(driverCode => {
-                        const driver = standings.find(d => d.Driver.code === driverCode);
-                        if (driver) total += parseInt(driver.points);
-                    });
-                    teamPoints[player] = total;
-                }
+          // Calculate total points for each team
+          for (const [player, drivers] of Object.entries(teams)) {
+            let total = 0;
+            drivers.forEach((driverCode) => {
+              const driver = standings.find(
+                (d) => d.Driver.code === driverCode
+              );
+              if (driver) total += parseInt(driver.points);
+            });
+            teamPoints[player] = total;
+          }
 
-                // Convert teamPoints to an array and sort by points (descending)
-                const sortedTeams = Object.entries(teamPoints).sort((a, b) => b[1] - a[1]);
+          // Convert teamPoints to an array and sort by points (descending)
+          const sortedTeams = Object.entries(teamPoints).sort(
+            (a, b) => b[1] - a[1]
+          );
 
-                // Display results in sorted order
-                const list = document.getElementById('standings');
-                sortedTeams.forEach(([player, points]) => {
-                    const li = document.createElement('li');
-                    li.textContent = `${player}: ${points} points`;
-                    list.appendChild(li);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+          // Display results in sorted order
+          const list = document.getElementById("standings");
+          sortedTeams.forEach(([player, points], index) => {
+            const li = document.createElement("li");
+            const playerSpan = document.createElement("span");
+            playerSpan.textContent = `${player}`;
+
+            const pointsSpan = document.createElement("span");
+            pointsSpan.textContent = `${points} pts`;
+
+            li.appendChild(playerSpan);
+            li.appendChild(pointsSpan);
+            list.appendChild(li);
+          });
+        })
+        .catch((error) => console.error("Error:", error));
     </script>
-</body>
+  </body>
 </html>

@@ -10,6 +10,7 @@ h1 {
   text-align: center;
   font-size: clamp(1.5rem, 5vw, 2.5rem);
   margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 #standings {
   background-color: #181111;
@@ -19,15 +20,17 @@ h1 {
   max-width: 500px;
   margin: 0 auto;
   border: 1px solid rgb(184, 2, 2);
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 #standings li {
   border-bottom: 1px solid rgb(184, 2, 2);
   color: #fff;
   font-size: clamp(0.9rem, 4vw, 1.1rem);
   display: flex;
+  padding: 1rem;
   justify-content: space-between;
   transition: transform 0.2s ease;
+  text-transform: uppercase;
 }
 
 #standings li:last-child {

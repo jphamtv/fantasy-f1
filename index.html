@@ -24,6 +24,16 @@
   <body>
     <h1>F1 Fantasy Standings</h1>
     <ul id="standings"></ul>
+
+    <h1>Driver Standings</h1>
+    <ul id="driverStandings">
+      <li class="header">
+        <span>Driver</span>
+        <span>Team</span>
+        <span>Points</span>
+      </li>
+    </ul>
+
     <script>
       // Your draft picks (update with your actual driver codes)
       const teams = {
@@ -71,6 +81,38 @@
             li.appendChild(playerSpan);
             li.appendChild(pointsSpan);
             list.appendChild(li);
+          });
+
+          // Display driver standings
+          const driverList = document.getElementById("driverStandings");
+
+          // Sort drivers by points (descending)
+          const sortedDrivers = [...standings].sort(
+            (a, b) => parseFloat(b.points) - parseFloat(a.points)
+          );
+
+          sortedDrivers.forEach((driver) => {
+            const li = document.createElement("li");
+
+            const driverNameSpan = document.createElement("span");
+            // Create a structure that allows for responsive formatting
+            driverNameSpan.innerHTML = `<span class="firstName">${driver.Driver.givenName}</span><span class="nameSpace">&nbsp;</span><span class="lastName">${driver.Driver.familyName}</span>`;
+            driverNameSpan.style.textTransform = "capitalize";
+            driverNameSpan.classList.add("driverName");
+
+            const teamSpan = document.createElement("span");
+            teamSpan.textContent = driver.Constructors[0].name;
+            teamSpan.style.textTransform = "capitalize";
+            teamSpan.classList.add("teamName");
+
+            const pointsSpan = document.createElement("span");
+            pointsSpan.textContent = driver.points;
+            pointsSpan.classList.add("points");
+
+            li.appendChild(driverNameSpan);
+            li.appendChild(teamSpan);
+            li.appendChild(pointsSpan);
+            driverList.appendChild(li);
           });
         })
         .catch((error) => console.error("Error:", error));

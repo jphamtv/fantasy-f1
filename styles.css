@@ -14,6 +14,9 @@ h1 {
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
+h1:not(:first-of-type) {
+  margin-top: 2rem;
+}
 #standings {
   background-color: #15151e;
   list-style: none;
@@ -24,7 +27,8 @@ h1 {
   border: 1px solid #ff1e00;
   border-radius: 0.25rem;
 }
-#driverStandings {
+#driverStandings,
+#constructorStandings {
   background-color: #15151e;
   list-style: none;
   padding: 0;
@@ -33,6 +37,9 @@ h1 {
   margin: 1rem auto 0;
   border: 1px solid #ff1e00;
   border-radius: 0.25rem;
+}
+#constructorStandings {
+  margin-bottom: 2rem;
 }
 #standings li {
   border-bottom: 1px solid #ff1e00;
@@ -44,7 +51,8 @@ h1 {
   transition: transform 0.2s ease;
   text-transform: uppercase;
 }
-#driverStandings li {
+#driverStandings li,
+#constructorStandings li {
   border-bottom: 1px solid #ff1e00;
   color: #fff;
   font-size: clamp(1.25rem, 3vw, 1.25rem);
@@ -55,7 +63,8 @@ h1 {
   text-transform: uppercase;
   align-items: start;
 }
-#driverStandings li.header {
+#driverStandings li.header,
+#constructorStandings li.header {
   background-color: #ff1e00;
   color: #fff;
   font-weight: bold;
@@ -63,10 +72,12 @@ h1 {
   font-size: 1rem;
   align-items: center;
 }
-#driverStandings li.header span {
+#driverStandings li.header span,
+#constructorStandings li.header span {
   text-align: left;
 }
-#driverStandings li.header span:last-child {
+#driverStandings li.header span:last-child,
+#constructorStandings li.header span:last-child {
   text-align: right;
 }
 #driverStandings .driverName {
@@ -83,16 +94,20 @@ h1 {
 #driverStandings .nameSpace {
   display: inline;
 }
-#driverStandings li span:last-child {
+#driverStandings li span:last-child,
+#constructorStandings li span:last-child {
   text-align: right;
 }
-#driverStandings .teamName {
+#driverStandings .teamName,
+#constructorStandings .constructorName,
+#constructorStandings .nationality {
   text-align: left;
 }
 #standings li:last-child {
   border: none;
 }
-#driverStandings li:last-child {
+#driverStandings li:last-child,
+#constructorStandings li:last-child {
   border: none;
 }
 /* Media Queries for different screen sizes */
@@ -105,7 +120,8 @@ h1 {
     max-width: 100%;
   }
 
-  #driverStandings {
+  #driverStandings,
+  #constructorStandings {
     max-width: 100%;
   }
 
@@ -113,7 +129,8 @@ h1 {
     padding: 1rem;
   }
 
-  #driverStandings li {
+  #driverStandings li,
+  #constructorStandings li {
     padding: 1rem;
     font-size: clamp(1rem, 3vw, 1.25rem);
   }
@@ -131,7 +148,8 @@ h1 {
     padding: 1rem;
   }
 
-  #driverStandings li {
+  #driverStandings li,
+  #constructorStandings li {
     padding: 0.75rem;
     font-size: 0.9rem;
     grid-template-columns: 1.5fr 1.5fr 1fr;
@@ -139,7 +157,8 @@ h1 {
     row-gap: 0;
   }
 
-  #driverStandings li.header {
+  #driverStandings li.header,
+  #constructorStandings li.header {
     padding: 0.5rem;
     font-size: 0.8rem;
     align-items: center;
@@ -165,12 +184,15 @@ h1 {
     display: none;
   }
 
-  #driverStandings .teamName {
+  #driverStandings .teamName,
+  #constructorStandings .constructorName,
+  #constructorStandings .nationality {
     align-self: center;
     justify-self: flex-start;
   }
 
-  #driverStandings .points {
+  #driverStandings .points,
+  #constructorStandings .points {
     align-self: center;
     justify-self: flex-end;
   }
@@ -180,14 +202,16 @@ h1 {
     font-size: 1.5rem;
   }
 
-  #driverStandings li {
+  #driverStandings li,
+  #constructorStandings li {
     grid-template-columns: 1.2fr 1.2fr 0.8fr;
     font-size: 0.75rem;
     padding: 0.5rem;
     row-gap: 0;
   }
 
-  #driverStandings li.header {
+  #driverStandings li.header,
+  #constructorStandings li.header {
     font-size: 0.75rem;
     letter-spacing: 0;
   }
@@ -198,7 +222,10 @@ h1 {
   }
 
   #driverStandings .teamName,
-  #driverStandings .points {
+  #constructorStandings .constructorName,
+  #constructorStandings .nationality,
+  #driverStandings .points,
+  #constructorStandings .points {
     margin-top: 0.15rem;
   }
 }

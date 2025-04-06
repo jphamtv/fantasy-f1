@@ -34,6 +34,15 @@
       </li>
     </ul>
 
+    <h1>Team Standings</h1>
+    <ul id="constructorStandings">
+      <li class="header">
+        <span>Team</span>
+        <span>Nationality</span>
+        <span>Points</span>
+      </li>
+    </ul>
+
     <script>
       // Your draft picks (update with your actual driver codes)
       const teams = {
@@ -114,6 +123,51 @@
             li.appendChild(pointsSpan);
             driverList.appendChild(li);
           });
+
+          // Fetch constructor standings
+          fetch("https://api.jolpi.ca/ergast/f1/current/constructorstandings")
+            .then((response) => response.json())
+            .then((data) => {
+              const constructorStandings =
+                data.MRData.StandingsTable.StandingsLists[0]
+                  .ConstructorStandings;
+
+              const constructorList = document.getElementById(
+                "constructorStandings"
+              );
+
+              // Sort constructors by points (descending) - though API usually returns them sorted already
+              const sortedConstructors = [...constructorStandings].sort(
+                (a, b) => parseFloat(b.points) - parseFloat(a.points)
+              );
+
+              sortedConstructors.forEach((constructor) => {
+                const li = document.createElement("li");
+
+                const constructorNameSpan = document.createElement("span");
+                constructorNameSpan.textContent = constructor.Constructor.name;
+                constructorNameSpan.style.textTransform = "capitalize";
+                constructorNameSpan.classList.add("constructorName");
+
+                const nationalitySpan = document.createElement("span");
+                nationalitySpan.textContent =
+                  constructor.Constructor.nationality;
+                nationalitySpan.style.textTransform = "capitalize";
+                nationalitySpan.classList.add("nationality");
+
+                const pointsSpan = document.createElement("span");
+                pointsSpan.textContent = constructor.points;
+                pointsSpan.classList.add("points");
+
+                li.appendChild(constructorNameSpan);
+                li.appendChild(nationalitySpan);
+                li.appendChild(pointsSpan);
+                constructorList.appendChild(li);
+              });
+            })
+            .catch((error) =>
+              console.error("Error fetching constructor standings:", error)
+            );
         })
         .catch((error) => console.error("Error:", error));
     </script>

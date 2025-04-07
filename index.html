@@ -110,7 +110,7 @@
             driverNameSpan.classList.add("driverName");
 
             const teamSpan = document.createElement("span");
-            teamSpan.textContent = driver.Constructors[0].name;
+            teamSpan.textContent = driver.Constructors[driver.Constructors.length - 1].name;
             teamSpan.style.textTransform = "capitalize";
             teamSpan.classList.add("teamName");
 
